@@ -50,7 +50,7 @@ function send(method='get', path='/', options={}){
 
     // try to return JSON body if possible
     try      { result.body && (result.body = JSON.parse(result.body)) }
-    catch(e) { /* body isn't a JSON...oh well */                      }
+    catch(e) { /* body isn't a JSON... oh well */                      }
 
 
     ///////////////////////////////////////////////////////////
