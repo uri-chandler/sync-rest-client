@@ -33,30 +33,20 @@ var response = syncClient.get('https://www.google.com');
 ## The Response Object
 ***for the most part, the `response` object is the same as the object that the original [request](https://www.npmjs.com/package/request) module passes as the 2nd `response` argument to it's callbacks***
 
-`body`
-
-if the response was a JSON-string, it will be parsed and `body` will be that JSON. otherwise, `body` will be a string
+`body` if the response was a JSON-string, it will be parsed and `body` will be that JSON. otherwise, `body` will be a string
 
 
-`statusCode`
-
-if no errors were thrown, the http status code returned by the server. otherwise, `statusCode` will be undefined (this is one way to tell that there was an error - normally a timeout)
+`statusCode` if no errors were thrown, the http status code returned by the server. otherwise, `statusCode` will be undefined (this is one way to tell that there was an error - normally a timeout)
 
 
-`retriesCount`
-
-the number of retries that were used to complete the request.
+`retriesCount` the number of retries that were used to complete the request.
 you can set this either globally for all requests using `.setGlobalRetry(maxRetries)` API, or by providing a `retries` key to the `options` object when sending a new request. **default is 3 retries**
 
 
-`headers`
-
-the response headers
+`headers` the response headers
 
 
-`code`
-
-if an error occurred while making the request, the error code will be populated onto this `code` property *(such as `ETIMEDOUT` etc.)*
+`code` if an error occurred while making the request, the error code will be populated onto this `code` property *(such as `ETIMEDOUT` etc.)*
 
 
 
@@ -131,7 +121,8 @@ the following *verbs* are supported:
 
 
 **Global Module Settings**
-you can use to following API to configure global settings that will apply for **all requests**
+
+you can use the following API to configure global settings that will apply for **all requests**
 
 **note:** options that are set using the `options` object take precedence over global configurations
 

@@ -2,7 +2,9 @@ var should     = require('chai').should();
 var echoServer = require('echo-server-with-api');
 var syncRest   = require('../index.js');
 
-describe('sync-rest-client', () => {
+describe('sync-rest-client', function() {
+
+    this.timeout(10000);
 
     before(done => echoServer.start(done));
     after(done => echoServer.stop(done));
