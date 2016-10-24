@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "deasync": "^0.1.8",
-    "request": "^2.75.0"
+    "request": "^2.75.0",
+    "wait-sync": "^1.0.1"
   }
 }

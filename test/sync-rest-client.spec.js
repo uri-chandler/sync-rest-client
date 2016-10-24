@@ -93,4 +93,15 @@ describe('sync-rest-client', function() {
         response.code.should.match(/timed?out/i);
         response.retriesCount.should.equal(3);
     });
+
+    it('error-handling: retry interval', () => {
+        var start    = new Date().getTime();
+        var response = syncRest.get(echoServer.location + '/?timeout', {timeout:0.5, retries:3, interval:1});
+        var time     = new Date().getTime() - start;
+
+        time.should.be.above(3000); // 3 retries with a 1 second interval should take at least 3 seconds
+        should.not.exist(response.statusCode);
+        response.code.should.match(/timed?out/i);
+        response.retriesCount.should.equal(3);
+    });
 });

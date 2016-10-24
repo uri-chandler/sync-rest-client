@@ -31,22 +31,22 @@ var response = syncClient.get('https://www.google.com');
 
 ---
 ## The Response Object
-***for the most part, the `response` object is the same as the object that the original [request](https://www.npmjs.com/package/request) module passes as the 2nd `response` argument to it's callbacks***
+***for the most part, the **`response`** object is the same as the object that the original [request](https://www.npmjs.com/package/request) module passes as the 2nd **`response`** argument to it's callbacks***
 
-`body` if the response was a JSON-string, it will be parsed and `body` will be that JSON. otherwise, `body` will be a string
-
-
-`statusCode` if no errors were thrown, the http status code returned by the server. otherwise, `statusCode` will be undefined (this is one way to tell that there was an error - normally a timeout)
+**`body`** if the response was a JSON-string, it will be parsed and **`body`** will be that JSON. otherwise, **`body`** will be a string
 
 
-`retriesCount` the number of retries that were used to complete the request.
-you can set this either globally for all requests using `.setGlobalRetry(maxRetries)` API, or by providing a `retries` key to the `options` object when sending a new request. **default is 3 retries**
+**`statusCode`** if no errors were thrown, the http status code returned by the server. otherwise, **`statusCode`** will be undefined (this is one way to tell that there was an error - normally a timeout)
 
 
-`headers` the response headers
+**`retriesCount`** the number of retries that were used to complete the request.
+you can set this either globally for all requests using **`.setGlobalRetry(maxRetries)`** API, or by providing a **`retries`** key to the **`options`** object when sending a new request. **default is 3 retries**
 
 
-`code` if an error occurred while making the request, the error code will be populated onto this `code` property *(such as `ETIMEDOUT` etc.)*
+**`headers`** the response headers
+
+
+**`code`** if an error occurred while making the request, the error code will be populated onto this **`code`** property *(such as **`ETIMEDOUT`** etc.)*
 
 
 
@@ -54,13 +54,13 @@ you can set this either globally for all requests using `.setGlobalRetry(maxRetr
 
 ---
 ## Errors
-things like `500` status-code (Internal Server Error) - or server timeouts (the request never reached the server) etc.
+things like **`500`** status-code (Internal Server Error) - or server timeouts (the request never reached the server) etc.
 
-these kind of errors are captured by the internal retry mechanism (configurable), and are populated on the response object on either the `response.statusCode` *(when a status-code is available)* or on `response.code` when the server didn't respond with a proper HTTP status code (timeout, unreachable etc..)
+these kind of errors are captured by the internal retry mechanism (configurable), and are populated on the response object on either the **`response.statusCode`** *(when a status-code is available)* or on **`response.code`** when the server didn't respond with a proper HTTP status code (timeout, unreachable etc..)
 
-all other HTTP status codes are reported through the `response.statusCode` property (404s etc) - together with the "healthy" status codes (200 OK \ 301 etc).
+all other HTTP status codes are reported through the **`response.statusCode`** property (404s etc) - together with the "healthy" status codes (200 OK \ 301 etc).
 
-**when `response.statusCode` isn't available, the response will not have a `body` or `headers`** *(i.e. the server did not respond, so there's no HTTP data)*
+**when **`response.statusCode`** isn't available, the response will not have a **`body`** or **`headers`**** *(i.e. the server did not respond, so there's no HTTP data)*
 
 
 
@@ -68,11 +68,11 @@ all other HTTP status codes are reported through the `response.statusCode` prope
 
 ---
 ## Retries
-by default, each "failed" request will be retried 3 times before giving up. you can configure this either per request by providing the `retries` key to the `options` object when sending a request - or - if you want a global retry setting, you can use the `.setGlobalRetry()` API
+by default, each "failed" request will be retried 3 times before giving up. you can configure this either per request by providing the **`retries`** key to the **`options`** object when sending a request - or - if you want a global retry setting, you can use the **`.setGlobalRetry()`** API
 
 to disable the retry mechanism (so that the request will give up after the first attempt) simply set the retries count to 0 (zero);
 
-the `response.retriesCount` property shows how many retries were made for a given request
+the **`response.retriesCount`** property shows how many retries were made for a given request
 
 
 
@@ -81,9 +81,9 @@ the `response.retriesCount` property shows how many retries were made for a give
 
 **HTTP Methods**
 
-`syncClient.<verb>(url, [options])`
+**`syncClient.<verb>(url, [options])`**
 
-the basic syntax for sending a request is to use the corresponding *verb* method, passing in the `url` and an optional `options` object
+the basic syntax for sending a request is to use the corresponding *verb* method, passing in the **`url`** and an optional **`options`** object
 
 ```javascript
 syncClient.get('https://www.google.com')
@@ -96,27 +96,29 @@ syncClient.post('https://www.google.com', {payload:'hello world'})
 ```
 
 the following *verbs* are supported:
-* `get`
-* `post`
-* `put`
-* `patch`
-* `del` *(not "delete")*
-* `head`
-* `options`
+* **`get`**
+* **`post`**
+* **`put`**
+* **`patch`**
+* **`del`** *(not "delete")*
+* **`head`**
+* **`options`**
 
-**note:** when using `head`, `response.body` will always be empty
+**note:** when using **`head`**, **`response.body`** will always be empty
 
 
 
-**The `options` object**
+**The **`options`** object**
 
-`timeout` **in seconds**, the time to wait before giving up on a request **default is 60 seconds**
+**`timeout`** **in seconds**, the time to wait before giving up on a request **default is 60 seconds**
 
-`retries` the number of retries before giving up on a request **default is 3 retries**
+**`retries`** the number of retries before giving up on a request **default is 3 retries**
 
-`headers` an object of headers to add to the request. if global headers (see below) are configured, they will be mergerd and sent together with headers that you pass in
+**`interval`** **in seconds**, the time to wait between each retry attempt
 
-`payload` the payload to be sent with the request. can either be a `string` or a `json`
+**`headers`** an object of headers to add to the request. if global headers (see below) are configured, they will be mergerd and sent together with headers that you pass in
+
+**`payload`** the payload to be sent with the request. can either be a **`string`** or a **`json`**
 
 
 
@@ -124,17 +126,19 @@ the following *verbs* are supported:
 
 you can use the following API to configure global settings that will apply for **all requests**
 
-**note:** options that are set using the `options` object take precedence over global configurations
+**note:** options that are set using the **`options`** object take precedence over global configurations
 
-`setGlobalRetry(numberOfRetries)` set the number of retries to use before giving up on a request
+**`setGlobalRetry(numberOfRetries)`** set the number of retries to use before giving up on a request
 
-`setGlobalTimeout(seconds)` set the number of seconds to wait before giving up on a request
+**`setGlobalInterval(seconds)`** set the number of seconds to wait before each retry. **default is 1 second**
 
-`addGlobalHeader(name, value)` adds a global header that will be send with all requests. if at a later point the same header name is passed with the `options.headers` object for a specific request - the value of the header will be taken from there - ignoring the global header configuration
+**`setGlobalTimeout(seconds)`** set the number of seconds to wait before giving up on a request
 
-`removeGlobalHeader(name)` removes a global header from being sent with all requests
+**`addGlobalHeader(name, value)`** adds a global header that will be send with all requests. if at a later point the same header name is passed with the **`options.headers`** object for a specific request - the value of the header will be taken from there - ignoring the global header configuration
 
-`clearGlobalHeaders()` an easy way to remove all global headers
+**`removeGlobalHeader(name)`** removes a global header from being sent with all requests
+
+**`clearGlobalHeaders()`** an easy way to remove all global headers
 
 **note:** no headers are added by default
 

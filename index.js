@@ -11,8 +11,9 @@
 ///////////////////////////////////////////////////////////
 // dependencies                                          //
 ///////////////////////////////////////////////////////////
-var request = require('request');
-var deasync = require('deasync');
+var request  = require('request');
+var deasync  = require('deasync');
+var waitSync = require('wait-sync');
 ///////////////////////////////////////////////////////////
 
 
@@ -22,6 +23,7 @@ var deasync = require('deasync');
 ///////////////////////////////////////////////////////////
 var $headers    = {};           // global headers
 var $timeout    = 60;           // in seconds
+var $interval   = 1;            // in seconds
 var $maxRetries = 3;            // set to 0 to disable retries
 var $currentTry = 0;
 ///////////////////////////////////////////////////////////
@@ -31,7 +33,8 @@ var $currentTry = 0;
 
 
 function send(method='get', path='/', options={}){
-    var result = null;
+    var result        = null;
+    var retryInterval = (options.interval || $interval);
 
     var requestOptions = {
         url     : path,
@@ -76,6 +79,7 @@ function send(method='get', path='/', options={}){
 
     if ($currentTry < $maxRetries && (!result.statusCode || result.statusCode >= 500)){
         $currentTry++;
+        waitSync(retryInterval);
         result = send(method, path, options);
     }
     else { // no more (or zero) retries
@@ -105,6 +109,7 @@ module.exports = {
 
     setGlobalTimeout    : seconds       => $timeout    = seconds * 1000,
     setGlobalRetry      : numOfRetries  => $maxRetries = numOfRetries,
+    setGlobalInterval   : seconds       => $interval   = seconds,
 
     clearGlobalHeaders  : ()            => $headers       = {},
     addGlobalHeader     : (name, value) => $headers[name] = value,
