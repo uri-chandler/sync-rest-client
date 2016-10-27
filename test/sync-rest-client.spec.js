@@ -104,4 +104,13 @@ describe('sync-rest-client', function() {
         response.code.should.match(/timed?out/i);
         response.retriesCount.should.equal(3);
     });
+
+    it('getGlobalHeaders()', () => {
+        syncRest.addGlobalHeader('foo', 'bar');
+
+        syncRest.getGlobalHeaders().should.be.an('object');
+        syncRest.getGlobalHeaders().should.have.key('foo');
+
+        syncRest.clearGlobalHeaders();
+    });
 });

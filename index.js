@@ -112,6 +112,7 @@ module.exports = {
     setGlobalInterval   : seconds       => $interval   = seconds,
 
     clearGlobalHeaders  : ()            => $headers       = {},
+    getGlobalHeaders    : ()            => Object.assign({}, $headers),
     addGlobalHeader     : (name, value) => $headers[name] = value,
     removeGlobalHeader  : name          => delete $headers[name]
 };
