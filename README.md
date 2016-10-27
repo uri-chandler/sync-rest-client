@@ -140,6 +140,8 @@ you can use the following API to configure global settings that will apply for *
 
 **`clearGlobalHeaders()`** an easy way to remove all global headers
 
+**`getGlobalHeaders()`** returns a copy of the global headers object *(not the internal one that is actually used, that one is protected on purpose)*
+
 **note:** no headers are added by default
 
 
