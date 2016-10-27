@@ -1,6 +1,6 @@
 {
   "name": "sync-rest-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a very basic, synchronous, rest\\http client",
   "main": "index.js",
   "scripts": {
